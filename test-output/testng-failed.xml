@@ -6,10 +6,11 @@
       <class name="MyTestCases">
         <methods>
           <include name="ReadData"/>
+          <include name="deleteData"/>
           <include name="SignupTest"/>
-          <include name="mySetUp"/>
-          <include name="UpdateData"/>
-          <include name="AfterMyTest"/>
+          <include name="updateData"/>
+          <include name="myBeforeTest"/>
+          <include name="AddNewRecord"/>
         </methods>
       </class> <!-- MyTestCases -->
     </classes>

@@ -18,29 +18,23 @@ public class MyData {
 	
 	// global variables to be used later 
 
-WebDriver driver = new EdgeDriver();
-	
-	// global variables to be used later 
+		String myWebSite = "https://automationteststore.com/";
 
-	String myWebSite = "https://automationteststore.com/";
+		String SignupPage = "https://automationteststore.com/index.php?rt=account/create";
 
-	String SignupPage = "https://automationteststore.com/index.php?rt=account/create";
+		Connection con;
 
-	Connection con;
+		Statement stmt;
 
-	Statement stmt;
+		ResultSet rs;
+		
+		// the data inside mydata base 
 
-	ResultSet rs;
-	
-	// the data inside mydata base 
-
-	String CustomerFirstNameInDataBase;
-	String CustomerLastNameInDataBase;
-	String email;
-	String password;
-	String CustomerCountryInDataBase;
-		//String LOGINAME = TheFirstName+TheLastName+randomNumberForTheEmail ; 
-
+		String CustomerFirstNameInDataBase;
+		String CustomerLastNameInDataBase;
+		String email;
+		String password;
+		String CustomerCountryInDataBase;
 
 	
 		
