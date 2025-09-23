@@ -43,12 +43,13 @@ public void myBeforeTest() throws SQLException {
 @Test(priority = 1, enabled = true)
 
 public void AddNewRecord() throws SQLException {
+	//we add in this postalcode
 
-	String query = "INSERT INTO customers (customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1, city, country, salesRepEmployeeNumber, creditLimit) VALUES (999, 'Abc Company', 'ali', 'ahmad', '962797700235', '123 Main St', 'Los Angeles', 'Spain', 1370, 50000.00)";
+	String query = "INSERT INTO customers (customerNumber, customerName, contactLastName, contactFirstName, phone, addressLine1, city,postalCode, country, salesRepEmployeeNumber, creditLimit) VALUES (999, 'Abc Company', 'ali', 'ahmad', '962797700235', '123 Main St', 'Los Angeles',69541,'Spain', 1370, 50000.00)";
 
-	stmt = con.createStatement();
+	stmt = con.createStatement(); 
 
-	int rowInserted = stmt.executeUpdate(query);
+	int rowInserted = stmt.executeUpdate(query);  //its for update ,insert ,deltet
 
 }
 
@@ -59,9 +60,9 @@ public void ReadData() throws SQLException {
 	String query = "select * from customers where customerNumber =999 ";
 	stmt = con.createStatement();
 
-	rs = stmt.executeQuery(query);
+	rs = stmt.executeQuery(query);   //know we use it to execute the query
 
-	System.out.println(rs);
+	System.out.println(rs); //if i have data or no
 
 	while (rs.next()) {
 		int customerNumberInDataBase = rs.getInt("customerNumber");
@@ -73,9 +74,14 @@ public void ReadData() throws SQLException {
 
 		;
 
-		email = CustomerFirstNameInDataBase + CustomerLastNameInDataBase + "@gmail.com";
-		password = "123!@#P@ssw0rd";
+		email = CustomerFirstNameInDataBase + CustomerLastNameInDataBase + randomNumberForTheEmail + "@gmail.com";
+		address = rs.getString("addressLine1").toString().trim();
 
+		ThePostalcode = rs.getString("postalCode").toString().trim();
+//phone
+		TelePhone = rs.getString("phone").toString().trim();
+
+		loginName = CustomerFirstNameInDataBase + CustomerLastNameInDataBase;
 	}
 
 }
@@ -104,7 +110,7 @@ public void deleteData() throws SQLException {
 
 }
 
-@Test(priority = 5,enabled = true)
+@Test(priority = 5,enabled = false)
 public void SignupTest() throws InterruptedException {
 
 	driver.navigate().to(SignupPage);
@@ -130,122 +136,118 @@ public void SignupTest() throws InterruptedException {
 
 	List<WebElement> AlltheStates = TheState.findElements(By.tagName("option"));
 
-//	String theCity = AlltheStates.get(theSelectStateIndex).getText();
+	String theCity = AlltheStates.get(1).getText();
+
+	WebElement TheCityInput = driver.findElement(By.id("AccountFrm_city"));
+
+	WebElement ThePostalCode = driver.findElement(By.id("AccountFrm_postcode"));
 //
-//	WebElement TheCityInput = driver.findElement(By.id("AccountFrm_city"));
+	WebElement LoginName = driver.findElement(By.id("AccountFrm_loginname"));
 //
-//	WebElement ThePostalCode = driver.findElement(By.id("AccountFrm_postcode"));
-//
-//	WebElement LoginName = driver.findElement(By.id("AccountFrm_loginname"));
-//
-//	WebElement ThePassword = driver.findElement(By.id("AccountFrm_password"));
-//	WebElement TheConfirmPassword = driver.findElement(By.id("AccountFrm_confirm"));
-//
-//	WebElement AgreeCheckBox = driver.findElement(By.id("AccountFrm_agree"));
-//
-//	WebElement CountinueButton = driver.findElement(By.xpath("//button[@title='Continue']"));
+	WebElement ThePassword = driver.findElement(By.id("AccountFrm_password"));
+	WebElement TheConfirmPassword = driver.findElement(By.id("AccountFrm_confirm"));
+	WebElement AgreeCheckBox = driver.findElement(By.id("AccountFrm_agree"));
+	WebElement CountinueButton = driver.findElement(By.xpath("//button[@title='Continue']"));
+
+
 //	// -- Actions --
-//	FirstName.sendKeys(TheFirstName);
-//	LastName.sendKeys(TheLastName);
-//	Email.sendKeys(TheEmail);
-//	Telephone.sendKeys(TelePhone);
-//	TheFax.sendKeys(TheFaxNumber);
-//	AddressOne.sendKeys(TheAddressOne);
+	FirstName.sendKeys(CustomerFirstNameInDataBase);
+	LastName.sendKeys(CustomerLastNameInDataBase);
+	Email.sendKeys(email);
+	Telephone.sendKeys(TelePhone);
+	TheFax.sendKeys(TheFaxNumber);
+	AddressOne.sendKeys(address);
 //	;
 //
-//	TheCityInput.sendKeys(theCity);
-//
-//	ThePostalCode.sendKeys(postalCode);
-//
-//	LoginName.sendKeys(LOGINAME);
-//	ThePassword.sendKeys(Password);
-//	TheConfirmPassword.sendKeys(Password);
-//	AgreeCheckBox.click();
-//	CountinueButton.click();
-//	Thread.sleep(5000);
-//	String ActualSignUpMessage = driver.findElement(By.className("maintext")).getText();
-//
-//	// test case ( بتقارن القيمة الحقيقة بالمتوقعة وبتشتغل زي ال if )
-//	Assert.assertEquals(ActualSignUpMessage, ExpectedTextForTheSignUp);
+	TheCityInput.sendKeys(theCity);
+	
+			ThePostalCode.sendKeys(ThePostalcode);
+	
+			LoginName.sendKeys(loginName+randomNumberForTheEmail);
+			ThePassword.sendKeys(password);
+			TheConfirmPassword.sendKeys(password);
+			AgreeCheckBox.click();
+			CountinueButton.click();
+			Thread.sleep(5000);
+			String ActualSignUpMessage = driver.findElement(By.className("maintext")).getText();
 
+			// test case ( بتقارن القيمة الحقيقة بالمتوقعة وبتشتغل زي ال if )
+			Assert.assertEquals(ActualSignUpMessage, ExpectedTextForTheSignUp);
 }
 
-//@Test (priority = 6,enabled = false)
-//public void LogoutTest() throws InterruptedException {
-//	
-//	Thread.sleep(2000);
-//	driver.findElement(By.partialLinkText("Logo")).click();;
-//	
-//	
-//	//System.out.println(driver.getPageSource());
-//	
-//	boolean ActualValueForLogout = driver.getPageSource().contains(TheLogoutMessage);
-//	
-//	Assert.assertEquals(ActualValueForLogout, true);
-//}
-//
-//@Test(priority = 7,enabled = false)
-//
-//public void Login() throws InterruptedException {
-//	
-//	//driver.findElement(By.partialLinkText("Login or ")).click();;
+@Test (priority = 6,enabled = false)
+public void LogoutTest() throws InterruptedException {
+	
+	Thread.sleep(2000);
+	driver.findElement(By.partialLinkText("Logo")).click();;
+	System.out.println(driver.getPageSource());
+	
+	boolean ActualValueForLogout = driver.getPageSource().contains(TheLogoutMessage);
+
+	Assert.assertEquals(ActualValueForLogout, true);
+}
+
+
+
+@Test(priority = 7,enabled =false)
+public void Login() throws InterruptedException {
+	
+ 
+	//driver.findElement(By.partialLinkText("Login or ")).click();;
 //	
 //	
 //	//driver.findElement(By.xpath("//a[@href='https://automationteststore.com/index.php?rt=account/login']")).click();
 //	
 //	
-//	driver.findElement(By.cssSelector("ul[id='customer_menu_top'] li a")).click();
+	driver.findElement(By.cssSelector("ul[id='customer_menu_top'] li a")).click();
 //	
-//	WebElement LoginNameInput = driver.findElement(By.id("loginFrm_loginname"));
+	WebElement LoginNameInput = driver.findElement(By.id("loginFrm_loginname"));
 //	
-//	WebElement LoginPasswordInput = driver.findElement(By.id("loginFrm_password"));
-//	WebElement LoginButton =driver.findElement(By.cssSelector("button[title='Login']"));
+	WebElement LoginPasswordInput = driver.findElement(By.id("loginFrm_password"));
+	WebElement LoginButton =driver.findElement(By.cssSelector("button[title='Login']"));
 //
 //	
 //	
-//	LoginNameInput.sendKeys(LOGINAME);
-//	LoginPasswordInput.sendKeys(Password);
+	LoginNameInput.sendKeys(loginName);
+	LoginPasswordInput.sendKeys(password);
 //	
-//	Thread.sleep(5000);
+	Thread.sleep(5000);
 //	
-//	LoginButton.click();
+	LoginButton.click();
 //	
-//	boolean ActualVlaue = driver.getPageSource().contains(welcomemessage);
-//	boolean Expectedvalue = true ; 
+	boolean ActualVlaue = driver.getPageSource().contains(welcomemessage);
+	boolean Expectedvalue = true ; 
 //	
-//	Assert.assertEquals(ActualVlaue, Expectedvalue);;
-//	
-//}
+	Assert.assertEquals(ActualVlaue, Expectedvalue);;
+}
+
+@Test(priority = 8,invocationCount = 5)
+public void AddItemToTheCart() {
+    driver.navigate().to(myWebSite);
+    Random rand = new Random();
 //
-//@Test(priority = 8,invocationCount = 1)
-//public void AddItemToTheCart() {
-//    driver.navigate().to(myWebSite);
-//    Random rand = new Random();
+    for (int i = 0; i < 10; i++) { // max 10 attempts here we can increase momkin 16 
+       // pick a random item and open it
+       List<WebElement> items = driver.findElements(By.className("prdocutname"));
+       int randomItem = rand.nextInt(items.size());
+       items.get(randomItem).click();
+
+// check availability
+        boolean outOfStock = driver.getPageSource().contains("Out of Stock"); // true
+       boolean blockedProduct = driver.getCurrentUrl().contains("product_id=116");//false
+
+        if (!outOfStock && !blockedProduct) {
+            driver.findElement(By.cssSelector(".cart")).click();
+            System.out.println("Added to cart: " + driver.getCurrentUrl());
+           return; // success
+        }
 //
-//    for (int i = 0; i < 10; i++) { // max 10 attempts here we can increase momkin 16 
-//        // pick a random item and open it
-//        List<WebElement> items = driver.findElements(By.className("prdocutname"));
-//        int randomItem = rand.nextInt(items.size());
-//        items.get(randomItem).click();
-//
-//        // check availability
-//        boolean outOfStock = driver.getPageSource().contains("Out of Stock"); // true
-//        boolean blockedProduct = driver.getCurrentUrl().contains("product_id=116");//false
-//
-//        if (!outOfStock && !blockedProduct) {
-//            driver.findElement(By.cssSelector(".cart")).click();
-//            System.out.println("Added to cart: " + driver.getCurrentUrl());
-//            return; // success
-//        }
-//
-//        driver.navigate().back(); // try again
-//    }
-//
-//    throw new RuntimeException("No in-stock item found after 10 attempts.");
-//}
-//
-//
-//
+     driver.navigate().back(); // try again
+   }
+
+   throw new RuntimeException("No in-stock item found after 10 attempts.");
+}
+
 //@AfterTest
 //public void AfterMyTest() {
 //

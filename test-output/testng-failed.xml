@@ -5,12 +5,9 @@
     <classes>
       <class name="MyTestCases">
         <methods>
-          <include name="ReadData"/>
-          <include name="deleteData"/>
-          <include name="SignupTest"/>
-          <include name="updateData"/>
+          <include name="Login"/>
+          <include name="AddItemToTheCart"/>
           <include name="myBeforeTest"/>
-          <include name="AddNewRecord"/>
         </methods>
       </class> <!-- MyTestCases -->
     </classes>

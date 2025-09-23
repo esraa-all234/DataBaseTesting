@@ -16,29 +16,50 @@ import org.testng.annotations.Test;
 public class MyData {
 	
 	
+WebDriver driver = new EdgeDriver();
+	
 	// global variables to be used later 
 
-		String myWebSite = "https://automationteststore.com/";
+	String myWebSite = "https://automationteststore.com/";
 
-		String SignupPage = "https://automationteststore.com/index.php?rt=account/create";
+	String SignupPage = "https://automationteststore.com/index.php?rt=account/create";
 
-		Connection con;
+	Connection con;
 
-		Statement stmt;
+	Statement stmt;
 
-		ResultSet rs;
-		
-		// the data inside mydata base 
+	ResultSet rs;
+	Random rand = new Random(); 
 
-		String CustomerFirstNameInDataBase;
-		String CustomerLastNameInDataBase;
-		String email;
-		String password;
-		String CustomerCountryInDataBase;
+	//its for elenamte the duplicate
+	int randomNumberForTheEmail1 = rand.nextInt(54789);
+	int randomNumberForTheEmail2 = rand.nextInt(5472);
+	int randomNumberForTheEmail3 = rand.nextInt(1600);
+
+	String ExpectedTextForTheSignUp = "YOUR ACCOUNT HAS BEEN CREATED!" ;
+	
+	int randomNumberForTheEmail = randomNumberForTheEmail1*randomNumberForTheEmail2 -randomNumberForTheEmail3 ; 
 
 	
-		
-		
-			
+	// the data inside mydata base 
 
+	String CustomerFirstNameInDataBase;
+	String CustomerLastNameInDataBase;
+	String email;
+	String password = "123!@#P@ssw0rd";
+	String CustomerCountryInDataBase;
+	
+	String address ; 
+
+	String ThePostalcode ; 
+	
+	String loginName ; 
+	
+String TelePhone;
+String TheFaxNumber="0000";
+		
+		
+String welcomemessage = "Welcome back "+ CustomerFirstNameInDataBase;
+
+String TheLogoutMessage ="You have been logged off your account. It is now safe to leave the computer.";
 }
